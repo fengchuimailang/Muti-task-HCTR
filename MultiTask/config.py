@@ -9,7 +9,6 @@ train_image_path = root + "train_img/"
 valid_dataset_path = root + "test_Dgr/"
 valid_image_path = root + "test_img/"
 
-
 # TODO meaning?
 PAD_ID = 0
 GO_ID = 1

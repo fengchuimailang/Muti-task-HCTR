@@ -1,4 +1,4 @@
-
+import numpy as np
 
 def read_alphabet(filename):
     """
@@ -25,3 +25,6 @@ def read_alphabet(filename):
     for idx, symbol in enumerate(idx2symbol):
         symbol2idx[symbol] = idx
     return idx2symbol, symbol2idx
+
+def sigmoid(x):
+    return 1 / (1 + np.exp(-x))

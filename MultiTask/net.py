@@ -2,12 +2,8 @@ import tensorflow as tf
 import tensorflow.contrib.slim as slim
 import numpy as np
 
-import config
-from utils import read_alphabet
-
-
-def sigmod(x):
-    return 1 / (1 + np.exp(-x))
+import MultiTask.config as config
+from MultiTask.utils import read_alphabet, sigmoid
 
 
 class Net(object):
@@ -22,7 +18,7 @@ class Net(object):
         def parse_example(serialized_example):
             context_features = {
                 "image_width": tf.FixedLenFeature([], dtype=tf.int64),
-                "image": tf.FixedLenFeature([], dtype=tf.string)
+                "image": tf.FixedLenFeature([], dtype=tf.string),
                 "location": tf.FixedLenFeature([], dtype=tf.string),
                 "classification": tf.FixedLenFeature([], dtype=tf.string),
                 "detection": tf.FixedLenFeature([], dtype=tf.string)
@@ -263,6 +259,7 @@ class Net(object):
                                                                             self.classification_feature)
             self.loc_loss = self.location_loss(self.location_pre, self.location)
             self.cla_loss = self.classification_loss(self.detection_pre, self.detection, self.location)
+            self.det_loss = self.detection_loss(self.detection_pre, self.detection, self.location)
 
             self.loss = self.loc_loss
             # self.loss = self.loc_loss + self.cla_loss + self.dec_loss

@@ -6,9 +6,9 @@ import cv2
 import struct
 from PIL import Image
 
+import MultiTask.config as config
+from MultiTask.utils import read_alphabet
 
-import config
-from utils import read_alphabet
 
 def resize_image(image, position):
     """
@@ -157,9 +157,6 @@ def load_data(root, save_img_path):
             cv2.imencode('.jpg', image)[1].tofile(line_file)
             im = Image.open(line_file)
             yield im, position, line_word, len(line_word)
-
-
-
 
 
 def create_tfrecord(train_save_path, dataset_path, save_img_path):
